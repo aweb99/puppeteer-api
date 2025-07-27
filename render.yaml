@@ -1,7 +1,11 @@
 services:
   - type: web
     name: puppeteer-api
-    env: node
+    runtime: node
+    region: oregon  # ایران نزدیک‌ترین ند رو نداره، ولی oregon یا frankfurt مناسبه
     plan: free
     buildCommand: npm install
-    startCommand: npm start
+    startCommand: node index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
