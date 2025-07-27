@@ -1,7 +1,7 @@
 {
   "name": "puppeteer-speed-api",
   "version": "1.0.0",
-  "description": "API برای تست سرعت سایت با Puppeteer",
+  "description": "API برای تست سرعت سایت با Puppeteer روی Render",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
