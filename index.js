@@ -1,5 +1,6 @@
 const express = require("express");
 const puppeteer = require("puppeteer");
+
 const app = express();
 
 app.get("/test", async (req, res) => {
@@ -8,13 +9,14 @@ app.get("/test", async (req, res) => {
 
     try {
         const browser = await puppeteer.launch({
-            executablePath: '/usr/bin/google-chrome-stable',
+            executablePath: '/usr/bin/google-chrome-stable', // مسیر کرومیوم در Render
             headless: 'new',
             args: ['--no-sandbox', '--disable-setuid-sandbox']
         });
-        const page = await browser.newPage();
 
+        const page = await browser.newPage();
         const requests = [];
+
         page.on('requestfinished', req => requests.push(req.url()));
 
         await page.goto(url, { waitUntil: 'networkidle2', timeout: 30000 });
@@ -29,7 +31,7 @@ app.get("/test", async (req, res) => {
             url,
             total_requests: requests.length,
             load_time_ms: performanceTiming.loadEventEnd - performanceTiming.navigationStart,
-            requests: requests.slice(0, 10) // فقط 10 درخواست اول
+            requests: requests.slice(0, 10) // فقط ۱۰ درخواست اول
         });
     } catch (err) {
         res.status(500).json({ error: err.message });
