@@ -8,7 +8,8 @@ app.get("/test", async (req, res) => {
 
     try {
         const browser = await puppeteer.launch({
-            headless: "new",
+            executablePath: '/usr/bin/google-chrome-stable',
+            headless: 'new',
             args: ['--no-sandbox', '--disable-setuid-sandbox']
         });
         const page = await browser.newPage();
@@ -28,7 +29,7 @@ app.get("/test", async (req, res) => {
             url,
             total_requests: requests.length,
             load_time_ms: performanceTiming.loadEventEnd - performanceTiming.navigationStart,
-            requests: requests.slice(0, 10) // فقط 10 درخواست اول برای مثال
+            requests: requests.slice(0, 10) // فقط 10 درخواست اول
         });
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -37,5 +38,5 @@ app.get("/test", async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`🟢 Puppeteer API running on port ${PORT}`);
+    console.log(`🟢 Puppeteer API running on port ${PORT}`);
 });
